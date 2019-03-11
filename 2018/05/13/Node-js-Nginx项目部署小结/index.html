@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.0" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Node.js,Nginx," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="最近在做一个微信小程序的小项目，需要部署Node.js项目到云平台，顺便就学习了一波Linux操作和代理服务器的部署。等到域名备案完，去服务器上面部署ssl，将我们的http，ws升级成https和wss协议。了解一下Nginx配置，部署起来还是比较容易的。">
+<meta name="keywords" content="Node.js,Nginx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node.js + Nginx项目部署小结">
+<meta property="og:url" content="http://yoursite.com/2018/05/13/Node-js-Nginx项目部署小结/index.html">
+<meta property="og:site_name" content="AM&#39;s Blog">
+<meta property="og:description" content="最近在做一个微信小程序的小项目，需要部署Node.js项目到云平台，顺便就学习了一波Linux操作和代理服务器的部署。等到域名备案完，去服务器上面部署ssl，将我们的http，ws升级成https和wss协议。了解一下Nginx配置，部署起来还是比较容易的。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/images/Nodejs-js-Nginx项目部署小结/https_unsafe.png">
+<meta property="og:updated_time" content="2019-03-09T06:54:15.484Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Node.js + Nginx项目部署小结">
+<meta name="twitter:description" content="最近在做一个微信小程序的小项目，需要部署Node.js项目到云平台，顺便就学习了一波Linux操作和代理服务器的部署。等到域名备案完，去服务器上面部署ssl，将我们的http，ws升级成https和wss协议。了解一下Nginx配置，部署起来还是比较容易的。">
+<meta name="twitter:image" content="http://yoursite.com/images/Nodejs-js-Nginx项目部署小结/https_unsafe.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/13/Node-js-Nginx项目部署小结/"/>
+
+
+
+
+
+  <title>Node.js + Nginx项目部署小结 | AM's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?aeb7bf498f3fd7fb20f431517d349a90";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AM's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/13/Node-js-Nginx项目部署小结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Aaron May">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AM's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Node.js + Nginx项目部署小结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-13T16:36:13+08:00">
+                2018-05-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DevOps/" itemprop="url" rel="index">
+                    <span itemprop="name">DevOps</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/05/13/Node-js-Nginx项目部署小结/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/05/13/Node-js-Nginx项目部署小结/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/05/13/Node-js-Nginx项目部署小结/" class="leancloud_visitors" data-flag-title="Node.js + Nginx项目部署小结">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近在做一个微信小程序的小项目，需要部署Node.js项目到云平台，顺便就学习了一波Linux操作和代理服务器的部署。<br>等到域名备案完，去服务器上面部署ssl，将我们的http，ws升级成https和wss协议。了解一下Nginx配置，部署起来还是比较容易的。<br><a id="more"></a></p>
+<h3 id="Nginx配置"><a href="#Nginx配置" class="headerlink" title="Nginx配置"></a>Nginx配置</h3><p>先附上一开始使用的Nginx config文件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 负载均衡选项，可以配置多个server</span></span><br><span class="line">upstream smartRestroom &#123;</span><br><span class="line">    server <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">2333</span>;</span><br><span class="line">&#125;</span><br><span class="line">upstream smartRestroomWs &#123;</span><br><span class="line">    server <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">2334</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen <span class="number">80</span>;</span><br><span class="line">    <span class="comment"># URL重定向，返回301永久重定向，浏览器地址栏会显示跳转后的URL地址</span></span><br><span class="line">    rewrite ^(.*) https://domain_name$<span class="number">1</span> permanent;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">    listen <span class="number">443</span> ssl;</span><br><span class="line">    <span class="comment"># 用以匹配header中的Host，可用于一个端口对应多个站点</span></span><br><span class="line">    server_name domain_name;</span><br><span class="line">    <span class="comment"># 指定证书路径</span></span><br><span class="line">    ssl_certificate /etc/nginx/ssl/<span class="number">1</span>_domain_name_bundle.crt;</span><br><span class="line">    ssl_certificate_key /etc/nginx/ssl/<span class="number">2</span>_domain_name.key;</span><br><span class="line">    <span class="comment"># session过期时间</span></span><br><span class="line">    ssl_session_timeout <span class="number">5</span>m;</span><br><span class="line">    <span class="comment"># 启动指定的加密协议，nginx在1.1.13和1.0.12版本后默认是ssl_protocols SSLv3 TLSv1 TLSv1.1 TLSv1.2</span></span><br><span class="line">    <span class="comment"># TLSv1.1与TLSv1.2要确保OpenSSL &gt;= 1.0.1，SSLv3现在还有很多地方在用但有不少被攻击的漏洞。</span></span><br><span class="line">    ssl_protocols TLSv1 TLSv1<span class="number">.1</span> TLSv1<span class="number">.2</span>;</span><br><span class="line">    <span class="comment"># 指定加密算法</span></span><br><span class="line">    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;</span><br><span class="line">    <span class="comment"># 设置协商加密算法时，优先使用我们服务端的加密套件，而不是客户端浏览器的加密套件</span></span><br><span class="line">    ssl_prefer_server_ciphers on;</span><br><span class="line">    <span class="comment"># 在响应的请求头部加入Strict-Transport-Security，告诉浏览器该域名只能通过HTTPS访问，并将此信息缓存一年</span></span><br><span class="line">    add_header Strict-Transport-Security <span class="string">"max-age=31536000; includeSubdomains"</span>;</span><br><span class="line"></span><br><span class="line">    location /smartRestroom/ &#123;</span><br><span class="line">        <span class="comment"># 在转发的请求头中修改或增加信息</span></span><br><span class="line">        <span class="comment"># http请求的主机域名</span></span><br><span class="line">        proxy_set_header Host $http_host;</span><br><span class="line">        <span class="comment"># 客户端IP</span></span><br><span class="line">        proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">        <span class="comment"># HTTP的请求端真实的IP</span></span><br><span class="line">        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">        <span class="comment"># 请求转向对应的服务器列表</span></span><br><span class="line">        proxy_pass http://smartRestroom;</span><br><span class="line">        <span class="comment"># 关闭代理重定向</span></span><br><span class="line">        proxy_redirect off;</span><br><span class="line">    &#125;</span><br><span class="line">    location /smartRestroomWs &#123;</span><br><span class="line">        proxy_pass http://smartRestroomWs;</span><br><span class="line">        <span class="comment"># 将http 版本设定为1.1，推荐用于需要keepalive的连接</span></span><br><span class="line">        proxy_http_version <span class="number">1.1</span>;</span><br><span class="line">        <span class="comment"># WebSocket必须要设定的两个header</span></span><br><span class="line">        proxy_set_header Upgrade $http_upgrade;</span><br><span class="line">        proxy_set_header Connection <span class="string">"upgrade"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>PS: domain_name 代表我们的服务器域名，当然不会让你知道啦&gt;A&lt;。<br>更详细的Nginx配置文档参见：<a href="http://nginx.org/en/docs/" target="_blank" rel="noopener">http://nginx.org/en/docs/</a><br>升级成功，但是测试的时候发现了两个小问题。</p>
+<h4 id="问题一：在https协议下可以直接用ip地址访问"><a href="#问题一：在https协议下可以直接用ip地址访问" class="headerlink" title="问题一：在https协议下可以直接用ip地址访问"></a>问题一：在https协议下可以直接用ip地址访问</h4><p>因为网站crt证书的域名和你正访问的不匹配，chrome会报警告，但是还是可以在高级选项中选择继续前往。<br><img src="/images/Nodejs-js-Nginx项目部署小结/https_unsafe.png" alt="Image text"></p>
+<h4 id="问题二：在http协议下可以直接用ip加项目端口直接访问，"><a href="#问题二：在http协议下可以直接用ip加项目端口直接访问，" class="headerlink" title="问题二：在http协议下可以直接用ip加项目端口直接访问，"></a>问题二：在http协议下可以直接用ip加项目端口直接访问，</h4><p>这种方式竟然可以绕过Nginx的https代理直接访问项目，还是让人挺害怕的。</p>
+<h4 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h4><p>不安全的请求意味着传输数据未加密，虽然对我们的小项目，那几条破数据来说无关紧要，但是我觉得还是有必要要了解一下解决方法。<br>第一个问题其实还比较好解决，可以直接在nginx里面修改配置。监听443端口，如果发现host是default的IP那么就转发到对应域名的https请求去。在Nginx config文件末尾加上：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen <span class="number">443</span> ssl default_server;</span><br><span class="line">    ssl_certificate /etc/nginx/ssl/<span class="number">1</span>_domain_name_bundle.crt;</span><br><span class="line">    ssl_certificate_key /etc/nginx/ssl/<span class="number">2</span>_domain_name.key;</span><br><span class="line">    rewrite ^(.*) https://domain_name$<span class="number">1</span> permanent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第二个问题其实比较严重，可以绕过https直接访问。这个困扰了我比较久。尝试修改配置文件，监听项目端口，将这个端口的请求用https转发，发现并没有用。似乎在Nginx层面无法屏蔽这种请求。<br>那么问题来了，<strong>怎样才能屏蔽http下 ip + port 直接访问项目的请求？</strong><br>经过不断的查找资料，发现，如果是Nginx + Tomcat的结构，那么可以在Tomcat的配置中加入：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;Connector port=<span class="string">"80"</span> protocol=<span class="string">"HTTP/1.1"</span></span><br><span class="line">    address=<span class="string">"127.0.0.1"</span></span><br><span class="line">    connectionTimeout=<span class="string">"20000"</span></span><br><span class="line">    redirectPort=<span class="string">"2333"</span> /&gt;</span><br></pre></td></tr></table></figure>
+<p>将项目端口8080绑定到127.0.0.1即可达到目的。</p>
+<p>同样的，我们Node.js server 也可以做到，<br>Node.js的server实例在启动监听的时候可以传入多个可选参数，查阅官方文档<a href="http://nodejs.cn/api/net.html#net_server_listen" target="_blank" rel="noopener">http://nodejs.cn/api/net.html#net_server_listen</a><br>HTTP是基于TCP协议的，那么server在启动监听的时候就有如下参数列表</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[server.listen([port][, host][, backlog][, callback])][server.listen(port, host)]</span><br></pre></td></tr></table></figure>
+<p>第一个参数是绑定的端口，第二个参数就是绑定的主机地址，传入127.0.0.1即可。</p>
+<p>对于webSocket server来说也是一样。<a href="https://github.com/websockets/ws" target="_blank" rel="noopener">https://github.com/websockets/ws</a></p>
+<p>为什么这样可行呢？让我一一道来。</p>
+<h3 id="server配置中的host与port"><a href="#server配置中的host与port" class="headerlink" title="server配置中的host与port"></a>server配置中的host与port</h3><p>host，即server所在的地址，省略的话默认为0.0.0.0。<br>port, 即server所监听的端口，省略或是0，系统会随意分配一个无用端口。<br>注意： 配置的host和port都必须是可用的，否则会报Error: listen EADDRNOTAVAIL。</p>
+<h4 id="可用的host地址"><a href="#可用的host地址" class="headerlink" title="可用的host地址"></a>可用的host地址</h4><p>包括本机IP, 0.0.0.0, 127.0.0.1 ~ 127.255.255.254。除0.0.0.0以外，以其他地址创建的server必须要以对应的地址发送请求，服务器才能接收到。</p>
+<h4 id="可用的port"><a href="#可用的port" class="headerlink" title="可用的port"></a>可用的port</h4><p>未被占用的端口都可以。</p>
+<h3 id="0-0-0-0和127-0-0-1的区别"><a href="#0-0-0-0和127-0-0-1的区别" class="headerlink" title="0.0.0.0和127.0.0.1的区别"></a>0.0.0.0和127.0.0.1的区别</h3><ul>
+<li><strong>0.0.0.0</strong>: 特殊的IP地址，在服务器中表示本机上所有的IPV4地址（多个网卡），也包括本地127.0.0.1 ~ 127.255.255.254。即通过任何网络接口到达的请求都能得到处理。</li>
+<li><strong>127.0.0.1 ~ 127.255.255.254</strong>：环回地址（loopback address），是留给本机网络测试用的网段，数据包仅在本机传输，不会通过外部网络接口。常用的localhost即127.0.0.1。将这部分网段中的地址设为server host的时候，即表示该server仅对本机提供服务。</li>
+</ul>
+<p>综上所述，当服务器绑定的主机地址是0.0.0.0的时候，既接收本机的请求，也接受其他机器的请求，而绑定主机地址为127.0.0.1之后就只接收本机的请求，这样就阻止了外部ip + port直接访问项目了。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Node-js/" rel="tag"># Node.js</a>
+          
+            <a href="/tags/Nginx/" rel="tag"># Nginx</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Aaron May" />
+            
+              <p class="site-author-name" itemprop="name">Aaron May</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/aaronmayo" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:aaron.may@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx配置"><span class="nav-number">1.</span> <span class="nav-text">Nginx配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#问题一：在https协议下可以直接用ip地址访问"><span class="nav-number">1.1.</span> <span class="nav-text">问题一：在https协议下可以直接用ip地址访问</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题二：在http协议下可以直接用ip加项目端口直接访问，"><span class="nav-number">1.2.</span> <span class="nav-text">问题二：在http协议下可以直接用ip加项目端口直接访问，</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决办法"><span class="nav-number">1.3.</span> <span class="nav-text">解决办法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#server配置中的host与port"><span class="nav-number">2.</span> <span class="nav-text">server配置中的host与port</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#可用的host地址"><span class="nav-number">2.1.</span> <span class="nav-text">可用的host地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可用的port"><span class="nav-number">2.2.</span> <span class="nav-text">可用的port</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0-0-0-0和127-0-0-1的区别"><span class="nav-number">3.</span> <span class="nav-text">0.0.0.0和127.0.0.1的区别</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Aaron May</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v6.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '7UtRhgTBuD3WMLSzrqb4gNwN-gzGzoHsz',
+        appKey: 'kbY0fX0d6EoDaWXHg3oALrXT',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("7UtRhgTBuD3WMLSzrqb4gNwN-gzGzoHsz", "7Rood5M2BIBJepazXIEQH5UK");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
