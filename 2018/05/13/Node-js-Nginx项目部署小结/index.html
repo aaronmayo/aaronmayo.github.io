@@ -84,7 +84,7 @@
 <meta property="og:description" content="最近在做一个微信小程序的小项目，需要部署Node.js项目到云平台，顺便就学习了一波Linux操作和代理服务器的部署。等到域名备案完，去服务器上面部署ssl，将我们的http，ws升级成https和wss协议。了解一下Nginx配置，部署起来还是比较容易的。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/images/Nodejs-js-Nginx项目部署小结/https_unsafe.png">
-<meta property="og:updated_time" content="2019-03-09T06:54:15.484Z">
+<meta property="og:updated_time" content="2019-05-22T12:20:46.745Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Node.js + Nginx项目部署小结">
 <meta name="twitter:description" content="最近在做一个微信小程序的小项目，需要部署Node.js项目到云平台，顺便就学习了一波Linux操作和代理服务器的部署。等到域名备案完，去服务器上面部署ssl，将我们的http，ws升级成https和wss协议。了解一下Nginx配置，部署起来还是比较容易的。">
@@ -169,7 +169,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle"></p>
+        <h1 class="site-subtitle" itemprop="description"></h1>
       
   </div>
 
@@ -274,7 +274,7 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/13/Node-js-Nginx项目部署小结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Aaron May">
+      <meta itemprop="name" content="Aaron Mei">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.jpg">
     </span>
@@ -288,7 +288,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Node.js + Nginx项目部署小结</h1>
+          <h2 class="post-title" itemprop="name headline">Node.js + Nginx项目部署小结</h2>
         
 
         <div class="post-meta">
@@ -396,7 +396,7 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[server.listen([port][, host][, backlog][, callback])][server.listen(port, host)]</span><br></pre></td></tr></table></figure>
 <p>第一个参数是绑定的端口，第二个参数就是绑定的主机地址，传入127.0.0.1即可。</p>
 <p>对于webSocket server来说也是一样。<a href="https://github.com/websockets/ws" target="_blank" rel="noopener">https://github.com/websockets/ws</a></p>
-<p>为什么这样可行呢？让我一一道来。</p>
+<p>为什么这样可行呢？</p>
 <h3 id="server配置中的host与port"><a href="#server配置中的host与port" class="headerlink" title="server配置中的host与port"></a>server配置中的host与port</h3><p>host，即server所在的地址，省略的话默认为0.0.0.0。<br>port, 即server所监听的端口，省略或是0，系统会随意分配一个无用端口。<br>注意： 配置的host和port都必须是可用的，否则会报Error: listen EADDRNOTAVAIL。</p>
 <h4 id="可用的host地址"><a href="#可用的host地址" class="headerlink" title="可用的host地址"></a>可用的host地址</h4><p>包括本机IP, 0.0.0.0, 127.0.0.1 ~ 127.255.255.254。除0.0.0.0以外，以其他地址创建的server必须要以对应的地址发送请求，服务器才能接收到。</p>
 <h4 id="可用的port"><a href="#可用的port" class="headerlink" title="可用的port"></a>可用的port</h4><p>未被占用的端口都可以。</p>
@@ -433,6 +433,22 @@
       
       
 
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/22/怎样用nodejs-server做文件上传中转到java后台服务器/" rel="prev" title="怎样用nodejs server做文件上传中转到java后台服务器">
+                怎样用nodejs server做文件上传中转到java后台服务器 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
       
 
       
@@ -500,9 +516,9 @@
             
               <img class="site-author-image" itemprop="image"
                 src="/images/avatar.jpg"
-                alt="Aaron May" />
+                alt="Aaron Mei" />
             
-              <p class="site-author-name" itemprop="name">Aaron May</p>
+              <p class="site-author-name" itemprop="name">Aaron Mei</p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
@@ -513,7 +529,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -524,7 +540,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -535,7 +551,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -614,7 +630,7 @@
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Aaron May</span>
+  <span class="author" itemprop="copyrightHolder">Aaron Mei</span>
 
   
 </div>
