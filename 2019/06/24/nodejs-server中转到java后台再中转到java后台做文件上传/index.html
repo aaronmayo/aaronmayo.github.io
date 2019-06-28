@@ -64,7 +64,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Node.js,Java," />
 
 
 
@@ -75,13 +75,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="AM&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="上次nodejs-server中转到java后台做文件上传，处理逻辑在我们自己的后台，这一次要将文件保存在别人的服务器上面，老板还要求要通过DOM层（DDD结构的项目）请求对方的webservice，所以这是一个前端到PRS，PRS到DOM，DOM到别人的DOM的一个非常长的请求=。=。">
+<meta name="keywords" content="Node.js,Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nodejs-server中转到java后台再中转到java后台做文件上传">
+<meta property="og:url" content="http://yoursite.com/2019/06/24/nodejs-server中转到java后台再中转到java后台做文件上传/index.html">
 <meta property="og:site_name" content="AM&#39;s Blog">
+<meta property="og:description" content="上次nodejs-server中转到java后台做文件上传，处理逻辑在我们自己的后台，这一次要将文件保存在别人的服务器上面，老板还要求要通过DOM层（DDD结构的项目）请求对方的webservice，所以这是一个前端到PRS，PRS到DOM，DOM到别人的DOM的一个非常长的请求=。=。">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-06-28T12:03:20.761Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AM&#39;s Blog">
+<meta name="twitter:title" content="nodejs-server中转到java后台再中转到java后台做文件上传">
+<meta name="twitter:description" content="上次nodejs-server中转到java后台做文件上传，处理逻辑在我们自己的后台，这一次要将文件保存在别人的服务器上面，老板还要求要通过DOM层（DDD结构的项目）请求对方的webservice，所以这是一个前端到PRS，PRS到DOM，DOM到别人的DOM的一个非常长的请求=。=。">
 
 
 
@@ -111,13 +116,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/06/24/nodejs-server中转到java后台再中转到java后台做文件上传/"/>
 
 
 
 
 
-  <title>AM's Blog</title>
+  <title>nodejs-server中转到java后台再中转到java后台做文件上传 | AM's Blog</title>
   
 
 
@@ -146,8 +151,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -250,9 +254,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -282,9 +286,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/24/nodejs-server中转到java后台再中转到java后台做文件上传/" itemprop="url">nodejs-server中转到java后台再中转到java后台做文件上传</a></h2>
+          <h2 class="post-title" itemprop="name headline">nodejs-server中转到java后台再中转到java后台做文件上传</h2>
         
 
         <div class="post-meta">
@@ -377,16 +379,20 @@
       
 
       
-        
-          <p>上次<a href="https://aaronmayo.github.io/2019/05/22/%E6%80%8E%E6%A0%B7%E7%94%A8nodejs-server%E5%81%9A%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B8%AD%E8%BD%AC%E5%88%B0java%E5%90%8E%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/" target="_blank" rel="noopener">nodejs-server中转到java后台做文件上传</a>，处理逻辑在我们自己的后台，这一次要将文件保存在别人的服务器上面，老板还要求要通过DOM层（DDD结构的项目）请求对方的webservice，所以这是一个前端到PRS，PRS到DOM，DOM到别人的DOM的一个非常长的请求=。=。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/06/24/nodejs-server中转到java后台再中转到java后台做文件上传/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+        <p>上次<a href="https://aaronmayo.github.io/2019/05/22/%E6%80%8E%E6%A0%B7%E7%94%A8nodejs-server%E5%81%9A%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B8%AD%E8%BD%AC%E5%88%B0java%E5%90%8E%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/" target="_blank" rel="noopener">nodejs-server中转到java后台做文件上传</a>，处理逻辑在我们自己的后台，这一次要将文件保存在别人的服务器上面，老板还要求要通过DOM层（DDD结构的项目）请求对方的webservice，所以这是一个前端到PRS，PRS到DOM，DOM到别人的DOM的一个非常长的请求=。=。<br><a id="more"></a></p>
+<h3 id="Java-server请求Java-webservice部分"><a href="#Java-server请求Java-webservice部分" class="headerlink" title="Java server请求Java webservice部分"></a>Java server请求Java webservice部分</h3><p>在这之前的代码和前面那篇文章里面写的没有什么差别，重要的是下面这部分。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.web.client.RestTemplateBuilder;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.io.ByteArrayResource;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.HttpEntity;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.HttpHeaders;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.MediaType;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.ResponseEntity;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Service;</span><br><span class="line"><span class="keyword">import</span> org.springframework.util.LinkedMultiValueMap;</span><br><span class="line"><span class="keyword">import</span> org.springframework.util.MultiValueMap;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.client.RestTemplate;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.multipart.MultipartFile;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileApiServiceImpl</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> RestTemplate restTemplate;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setRestTemplate</span><span class="params">(RestTemplate restTemplate)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.restTemplate = restTemplate;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Autowired</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">FileApiServiceImpl</span><span class="params">(RestTemplateBuilder restTemplateBuilder)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.restTemplate = restTemplateBuilder.build();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> ResponseEntity&lt;Map&gt; <span class="title">uploadFile</span><span class="params">(MultipartFile file)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    HttpHeaders headers = <span class="keyword">new</span> HttpHeaders();</span><br><span class="line">    headers.setContentType(MediaType.MULTIPART_FORM_DATA);</span><br><span class="line">    MultiValueMap&lt;String, Object&gt; body = <span class="keyword">new</span> LinkedMultiValueMap&lt;&gt;();</span><br><span class="line">    ByteArrayResource resource =</span><br><span class="line">        <span class="keyword">new</span> ByteArrayResource(file.getBytes()) &#123;</span><br><span class="line">          <span class="meta">@Override</span></span><br><span class="line">          <span class="function"><span class="keyword">public</span> String <span class="title">getFilename</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> file.getOriginalFilename();</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    body.add(<span class="string">"file"</span>, resource);</span><br><span class="line">    HttpEntity&lt;MultiValueMap&lt;String, Object&gt;&gt; requestEntity = <span class="keyword">new</span> HttpEntity&lt;&gt;(body, headers);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.restTemplate.postForEntity(URL, requestEntity, Map.class);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>接收方服务器的处理部分跟上篇文章的Java部分类似。文件传输的关键点就是对于流的处理。</p>
+<h3 id="RestTemplate"><a href="#RestTemplate" class="headerlink" title="RestTemplate"></a>RestTemplate</h3><p>这段代码用到了RestTemplate，RestTemplate即Spring对RESTful API的支持实现。<br>经常使用的有</p>
+<ul>
+<li>getForEntity()<br>  发送GET请求，结果返回ResponseEntity包装的HTTP Respose</li>
+<li>getForObject()<br>  发送GET请求，结果直接返回HTTP Respose body</li>
+<li>postForEntity()<br>  发送POST请求，结果返回ResponseEntity包装的HTTP Respose</li>
+<li>postForObject()<br>  发送POST请求，结果直接返回HTTP Respose body</li>
+<li>exchange()<br>  发送指定的HTTP请求，结果返回ResponseEntity包装的HTTP Respose</li>
+<li>execute()<br>  发送指定的HTTP请求，结果直接返回HTTP Respose body</li>
+</ul>
+<p>详见<a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/client/RestTemplate.html" target="_blank" rel="noopener">Spring RestTemplate官方文档</a></p>
+
       
     </div>
     
@@ -401,348 +407,38 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/22/nodejs-server中转到java后台做文件上传/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Aaron Mei">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AM's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/22/nodejs-server中转到java后台做文件上传/" itemprop="url">nodejs-server中转到java后台做文件上传</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-22T20:14:19+08:00">
-                2019-05-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tech/" itemprop="url" rel="index">
-                    <span itemprop="name">Tech</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/Node-js/" rel="tag"># Node.js</a>
           
-
+            <a href="/tags/Java/" rel="tag"># Java</a>
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/05/22/nodejs-server中转到java后台做文件上传/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/22/nodejs-server中转到java后台做文件上传/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2019/05/22/nodejs-server中转到java后台做文件上传/" class="leancloud_visitors" data-flag-title="nodejs-server中转到java后台做文件上传">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          <p>由于工作上的需要，项目要求从浏览器上传文件经过前端服务器中转，然后再传到后端服务器处理数据。我们的前端是用的Nodejs + Vuejs，后端用的Java Spring Boot。这就涉及到怎样将带有multipart类型内容的http请求通过Nodejs转发出去。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/05/22/nodejs-server中转到java后台做文件上传/#more" rel="contents">
-              Read more &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/22/nodejs-server中转到java后台做文件上传/" rel="next" title="nodejs-server中转到java后台做文件上传">
+                <i class="fa fa-chevron-left"></i> nodejs-server中转到java后台做文件上传
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/13/Node-js-Nginx项目部署小结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Aaron Mei">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AM's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/13/Node-js-Nginx项目部署小结/" itemprop="url">Node.js + Nginx项目部署小结</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+          <div class="post-nav-prev post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-13T16:36:13+08:00">
-                2018-05-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/DevOps/" itemprop="url" rel="index">
-                    <span itemprop="name">DevOps</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/05/13/Node-js-Nginx项目部署小结/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/05/13/Node-js-Nginx项目部署小结/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2018/05/13/Node-js-Nginx项目部署小结/" class="leancloud_visitors" data-flag-title="Node.js + Nginx项目部署小结">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <p>最近在做一个微信小程序的小项目，需要部署Node.js项目到云平台，顺便就学习了一波Linux操作和代理服务器的部署。<br>等到域名备案完，去服务器上面部署ssl，将我们的http，ws升级成https和wss协议。了解一下Nginx配置，部署起来还是比较容易的。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/05/13/Node-js-Nginx项目部署小结/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -752,10 +448,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -763,6 +460,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -783,8 +487,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -870,6 +583,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-server请求Java-webservice部分"><span class="nav-number">1.</span> <span class="nav-text">Java server请求Java webservice部分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RestTemplate"><span class="nav-number">2.</span> <span class="nav-text">RestTemplate</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1016,6 +745,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.0"></script>
+
+
 
   
 
