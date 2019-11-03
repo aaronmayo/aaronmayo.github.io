@@ -64,7 +64,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="JavaScript," />
 
 
 
@@ -75,13 +75,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="AM&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/tags/JavaScript/index.html">
+<meta name="description" content="在JavaSript中call和apply可以调用函数，改变this，实现继承和借用别的对象的方法。 call和apply的区别仅仅在于调用的时候，真实函数用到的参数的组织形式。 12fn.call(that, x, y, z);fn.apply(that, [x, y, z]); 以上等价。 bind仅仅改变函数的this，并且可以给一部分的参数，但是并不调用该函数。 12const fn2 =">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="call,apply和bind的原生实现">
+<meta property="og:url" content="http://yoursite.com/2019/10/29/call-apply和bind的原生实现/index.html">
 <meta property="og:site_name" content="AM&#39;s Blog">
+<meta property="og:description" content="在JavaSript中call和apply可以调用函数，改变this，实现继承和借用别的对象的方法。 call和apply的区别仅仅在于调用的时候，真实函数用到的参数的组织形式。 12fn.call(that, x, y, z);fn.apply(that, [x, y, z]); 以上等价。 bind仅仅改变函数的this，并且可以给一部分的参数，但是并不调用该函数。 12const fn2 =">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-11-03T16:51:28.660Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AM&#39;s Blog">
+<meta name="twitter:title" content="call,apply和bind的原生实现">
+<meta name="twitter:description" content="在JavaSript中call和apply可以调用函数，改变this，实现继承和借用别的对象的方法。 call和apply的区别仅仅在于调用的时候，真实函数用到的参数的组织形式。 12fn.call(that, x, y, z);fn.apply(that, [x, y, z]); 以上等价。 bind仅仅改变函数的this，并且可以给一部分的参数，但是并不调用该函数。 12const fn2 =">
 
 
 
@@ -111,13 +116,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/JavaScript/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/10/29/call-apply和bind的原生实现/"/>
 
 
 
 
 
-  <title>Tag: JavaScript | AM's Blog</title>
+  <title>call,apply和bind的原生实现 | AM's Blog</title>
   
 
 
@@ -146,7 +151,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -250,82 +255,202 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h2>JavaScript<small>Tag</small>
-        </h2>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/29/call-apply和bind的原生实现/">
 
-      <h3 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Aaron Mei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AM's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2019/10/29/call-apply和bind的原生实现/" itemprop="url">
-              
-                <span itemprop="name">call,apply和bind的原生实现</span>
-              
-            </a>
         
-      </h3>
+          <h2 class="post-title" itemprop="name headline">call,apply和bind的原生实现</h2>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-10-29T00:54:05+08:00"
-              content="2019-10-29" >
-          10-29
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-29T00:54:05+08:00">
+                2019-10-29
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Program/" itemprop="url" rel="index">
+                    <span itemprop="name">Program</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/10/29/call-apply和bind的原生实现/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/10/29/call-apply和bind的原生实现/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/10/29/call-apply和bind的原生实现/" class="leancloud_visitors" data-flag-title="call,apply和bind的原生实现">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
+      
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/2019/10/23/JavaScript实现instanceof/" itemprop="url">
-              
-                <span itemprop="name">JavaScript实现instanceof</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-10-23T20:24:16+08:00"
-              content="2019-10-23" >
-          10-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
+        <p>在JavaSript中call和apply可以调用函数，改变this，实现继承和借用别的对象的方法。</p>
+<p>call和apply的区别仅仅在于调用的时候，真实函数用到的参数的组织形式。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fn.call(that, x, y, z);</span><br><span class="line">fn.apply(that, [x, y, z]);</span><br></pre></td></tr></table></figure>
+<p>以上等价。</p>
+<p>bind仅仅改变函数的this，并且可以给一部分的参数，但是并不调用该函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fn2 = fn.bind(that, x)</span><br><span class="line">fn2(y)</span><br></pre></td></tr></table></figure>
+<p>call的实现</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myCall = <span class="function"><span class="keyword">function</span>(<span class="params">scope,...args</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> fn = <span class="built_in">Symbol</span>(<span class="string">'fn'</span>)   <span class="comment">// 标识唯一性, 避免修改scope属性</span></span><br><span class="line">    scope[fn] = <span class="keyword">this</span></span><br><span class="line">    <span class="keyword">const</span> result = scope[fn](...args)</span><br><span class="line">    <span class="keyword">delete</span> scope[fn]</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>apply的实现</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myApply = <span class="function"><span class="keyword">function</span>(<span class="params">scope, argsArr</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> fn = <span class="built_in">Symbol</span>(<span class="string">'fn'</span>)   <span class="comment">// 标识唯一性, 避免修改scope属性</span></span><br><span class="line">    scope[fn] = <span class="keyword">this</span></span><br><span class="line">    <span class="keyword">const</span> result = scope[fn](...args)</span><br><span class="line">    <span class="keyword">delete</span> scope[fn]</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>bind的实现</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myBind = <span class="function"><span class="keyword">function</span>(<span class="params">scope, ...args</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> fn = <span class="built_in">Symbol</span>(<span class="string">'fn'</span>)   <span class="comment">// 标识唯一性, 避免修改scope属性</span></span><br><span class="line">    scope[fn] = <span class="keyword">this</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">...args2</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">const</span> result = scope[fn](...args, ...args2)</span><br><span class="line">        <span class="keyword">delete</span> scope[fn]</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>不足：如果函数体里面打印出this的值，会发现this里面增加了属性fn。</p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/23/JavaScript实现instanceof/" rel="next" title="JavaScript实现instanceof">
+                <i class="fa fa-chevron-left"></i> JavaScript实现instanceof
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -333,6 +458,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -586,6 +718,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.0"></script>
+
+
 
   
 
