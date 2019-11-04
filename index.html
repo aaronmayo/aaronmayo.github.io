@@ -265,6 +265,167 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/04/JavaScript事件委托/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Aaron Mei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AM's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/04/JavaScript事件委托/" itemprop="url">JavaScript事件委托</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-04T20:06:07+08:00">
+                2019-11-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/11/04/JavaScript事件委托/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/11/04/JavaScript事件委托/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/11/04/JavaScript事件委托/" class="leancloud_visitors" data-flag-title="JavaScript事件委托">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>JavaScript<br>categories:</li>
+<li>Program</li>
+</ul>
+<hr>
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>事件委托或者叫事件代理，利用事件冒泡，只指定一个事件处理程序，就可以管理某一类型的所有事件。</p>
+<h3 id="为什么要用事件代理"><a href="#为什么要用事件代理" class="headerlink" title="为什么要用事件代理"></a>为什么要用事件代理</h3><ol>
+<li>可以减少DOM节点的操作次数，提高性能</li>
+<li>可以即时为新创建的节点加上事件</li>
+</ol>
+<h3 id="事件捕获和事件冒泡机制"><a href="#事件捕获和事件冒泡机制" class="headerlink" title="事件捕获和事件冒泡机制"></a>事件捕获和事件冒泡机制</h3><h4 id="事件捕获"><a href="#事件捕获" class="headerlink" title="事件捕获"></a>事件捕获</h4><p>当一个事件触发后，从window对象触发，不断经过下级节点，最终到达目标节点，途中经过的节点都会依次触发相应的事件。</p>
+<h4 id="事件冒泡"><a href="#事件冒泡" class="headerlink" title="事件冒泡"></a>事件冒泡</h4><p>当触发的事件到达目标节点之后，会沿着捕获的路径原路返回，经过的节点依次触发相应的事件。</p>
+<p>利用addEventListener方法我们可以控制方法在事件捕获还是在冒泡的时候触发</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// useCapture默认为false，事件冒泡时触发；为true时，事件捕获时触发</span><br><span class="line">addEventListener(eventName, function, useCapture)</span><br></pre></td></tr></table></figure>
+<p>利用addEventListener还可以在同一个DOM元素上面绑定多个同类型事件。</p>
+<h3 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h3><p>将事件绑定在DOM元素的父节点上，并利用传进事件方法的event对象的属性target去判断触发事件的真实来源。</p>
+<p>注：标准浏览器用target, IE浏览器同srcElement</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  window.onload = function()&#123;</span></span><br><span class="line"><span class="undefined">    const ulDom = document.querySelector('ul')</span></span><br><span class="line"><span class="undefined">    ulDom.addEventListener('click', function(event) &#123;</span></span><br><span class="line"><span class="undefined">        const target = event.target || event.srcElement</span></span><br><span class="line"><span class="undefined">        if(target.nodeName.toLowerCase() === 'li')&#123;</span></span><br><span class="line"><span class="undefined">          console.log('bingo!')          </span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    &#125;, true)      </span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="适合的事件"><a href="#适合的事件" class="headerlink" title="适合的事件"></a>适合的事件</h3><p>适合用事件委托的事件有：click, mousedown, mouseup, keydown, keyup, keypress.</p>
+<p>虽然mouseover和mouseout虽然也有事件冒泡，但是处理的时候需要经常计算他们的位置，处理起来很不容易。</p>
+<p>还有focus和blur，本身就没有冒泡的特性，没有办法用事件委托。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/29/call-apply和bind的原生实现/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1149,7 +1310,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
