@@ -75,18 +75,18 @@
 
 
 
-<meta name="description" content="在JavaSript中call和apply可以调用函数，改变this，实现继承和借用别的对象的方法。 call和apply的区别仅仅在于调用的时候，真实函数用到的参数的组织形式。 12fn.call(that, x, y, z);fn.apply(that, [x, y, z]); 以上等价。 bind仅仅改变函数的this，并且可以给一部分的参数，但是并不调用该函数。 12const fn2 =">
+<meta name="description" content="在JavaSript中call和apply可以调用函数，改变this，实现继承和借用别的对象的方法。 call和apply的区别仅仅在于调用的时候，真实函数用到的参数的组织形式。">
 <meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="call,apply和bind的原生实现">
 <meta property="og:url" content="http://yoursite.com/2019/10/29/call-apply和bind的原生实现/index.html">
 <meta property="og:site_name" content="AM&#39;s Blog">
-<meta property="og:description" content="在JavaSript中call和apply可以调用函数，改变this，实现继承和借用别的对象的方法。 call和apply的区别仅仅在于调用的时候，真实函数用到的参数的组织形式。 12fn.call(that, x, y, z);fn.apply(that, [x, y, z]); 以上等价。 bind仅仅改变函数的this，并且可以给一部分的参数，但是并不调用该函数。 12const fn2 =">
+<meta property="og:description" content="在JavaSript中call和apply可以调用函数，改变this，实现继承和借用别的对象的方法。 call和apply的区别仅仅在于调用的时候，真实函数用到的参数的组织形式。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-11-03T16:51:28.660Z">
+<meta property="og:updated_time" content="2019-11-05T14:53:17.016Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="call,apply和bind的原生实现">
-<meta name="twitter:description" content="在JavaSript中call和apply可以调用函数，改变this，实现继承和借用别的对象的方法。 call和apply的区别仅仅在于调用的时候，真实函数用到的参数的组织形式。 12fn.call(that, x, y, z);fn.apply(that, [x, y, z]); 以上等价。 bind仅仅改变函数的this，并且可以给一部分的参数，但是并不调用该函数。 12const fn2 =">
+<meta name="twitter:description" content="在JavaSript中call和apply可以调用函数，改变this，实现继承和借用别的对象的方法。 call和apply的区别仅仅在于调用的时候，真实函数用到的参数的组织形式。">
 
 
 
@@ -381,6 +381,7 @@
       
         <p>在JavaSript中call和apply可以调用函数，改变this，实现继承和借用别的对象的方法。</p>
 <p>call和apply的区别仅仅在于调用的时候，真实函数用到的参数的组织形式。</p>
+<a id="more"></a>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fn.call(that, x, y, z);</span><br><span class="line">fn.apply(that, [x, y, z]);</span><br></pre></td></tr></table></figure>
 <p>以上等价。</p>
 <p>bind仅仅改变函数的this，并且可以给一部分的参数，但是并不调用该函数。</p>
