@@ -64,7 +64,7 @@
 
 
 
-  <meta name="keywords" content="JavaScript," />
+  <meta name="keywords" content="HTML," />
 
 
 
@@ -75,18 +75,21 @@
 
 
 
-<meta name="description" content="在JavaSript中call和apply可以调用函数，改变this，实现继承和借用别的对象的方法。 call和apply的区别仅仅在于调用的时候，真实函数用到的参数的组织形式。">
-<meta name="keywords" content="JavaScript">
+<meta name="description" content="浏览器在解析HTML的过程中可能会对DOM的渲染或者其他资源的加载造成阻塞，实际上这是浏览器内核出于对各种标签里面的可能执行内容，对浏览器渲染效率的考虑而做出的结果。">
+<meta name="keywords" content="HTML">
 <meta property="og:type" content="article">
-<meta property="og:title" content="call,apply和bind的原生实现">
-<meta property="og:url" content="http://yoursite.com/2019/10/29/call-apply和bind的原生实现/index.html">
+<meta property="og:title" content="HTML渲染机制-script与link标签加载顺序">
+<meta property="og:url" content="http://yoursite.com/2019/12/16/html渲染机制-script与link标签加载顺序/index.html">
 <meta property="og:site_name" content="AM&#39;s Blog">
-<meta property="og:description" content="在JavaSript中call和apply可以调用函数，改变this，实现继承和借用别的对象的方法。 call和apply的区别仅仅在于调用的时候，真实函数用到的参数的组织形式。">
+<meta property="og:description" content="浏览器在解析HTML的过程中可能会对DOM的渲染或者其他资源的加载造成阻塞，实际上这是浏览器内核出于对各种标签里面的可能执行内容，对浏览器渲染效率的考虑而做出的结果。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-11-05T14:53:17.016Z">
+<meta property="og:image" content="http://yoursite.com/images/html渲染机制-script与link标签加载顺序/network_js_css.png">
+<meta property="og:image" content="http://yoursite.com/images/html渲染机制-script与link标签加载顺序/network_js_css_icon.png">
+<meta property="og:updated_time" content="2019-12-29T13:17:09.624Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="call,apply和bind的原生实现">
-<meta name="twitter:description" content="在JavaSript中call和apply可以调用函数，改变this，实现继承和借用别的对象的方法。 call和apply的区别仅仅在于调用的时候，真实函数用到的参数的组织形式。">
+<meta name="twitter:title" content="HTML渲染机制-script与link标签加载顺序">
+<meta name="twitter:description" content="浏览器在解析HTML的过程中可能会对DOM的渲染或者其他资源的加载造成阻塞，实际上这是浏览器内核出于对各种标签里面的可能执行内容，对浏览器渲染效率的考虑而做出的结果。">
+<meta name="twitter:image" content="http://yoursite.com/images/html渲染机制-script与link标签加载顺序/network_js_css.png">
 
 
 
@@ -116,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/10/29/call-apply和bind的原生实现/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/12/16/html渲染机制-script与link标签加载顺序/"/>
 
 
 
 
 
-  <title>call,apply和bind的原生实现 | AM's Blog</title>
+  <title>HTML渲染机制-script与link标签加载顺序 | AM's Blog</title>
   
 
 
@@ -269,7 +272,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/29/call-apply和bind的原生实现/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/16/html渲染机制-script与link标签加载顺序/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Aaron Mei">
@@ -286,7 +289,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">call,apply和bind的原生实现</h2>
+          <h2 class="post-title" itemprop="name headline">HTML渲染机制-script与link标签加载顺序</h2>
         
 
         <div class="post-meta">
@@ -298,8 +301,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-29T00:54:05+08:00">
-                2019-10-29
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-16T11:32:21+08:00">
+                2019-12-16
               </time>
             
 
@@ -321,8 +324,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Program/" itemprop="url" rel="index">
-                    <span itemprop="name">Program</span>
+                  <a href="/categories/Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Web</span>
                   </a>
                 </span>
 
@@ -339,8 +342,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/10/29/call-apply和bind的原生实现/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/10/29/call-apply和bind的原生实现/" itemprop="commentCount"></span>
+                <a href="/2019/12/16/html渲染机制-script与link标签加载顺序/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/12/16/html渲染机制-script与link标签加载顺序/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -348,7 +351,7 @@
 
           
           
-             <span id="/2019/10/29/call-apply和bind的原生实现/" class="leancloud_visitors" data-flag-title="call,apply和bind的原生实现">
+             <span id="/2019/12/16/html渲染机制-script与link标签加载顺序/" class="leancloud_visitors" data-flag-title="HTML渲染机制-script与link标签加载顺序">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -379,20 +382,20 @@
       
 
       
-        <p>在JavaSript中call和apply可以调用函数，改变this，实现继承和借用别的对象的方法。</p>
-<p>call和apply的区别仅仅在于调用的时候，真实函数用到的参数的组织形式。</p>
-<a id="more"></a>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fn.call(that, x, y, z);</span><br><span class="line">fn.apply(that, [x, y, z]);</span><br></pre></td></tr></table></figure>
-<p>以上等价。</p>
-<p>bind仅仅改变函数的this，并且可以给一部分的参数，但是并不调用该函数。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fn2 = fn.bind(that, x)</span><br><span class="line">fn2(y)</span><br></pre></td></tr></table></figure>
-<p>call的实现</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myCall = <span class="function"><span class="keyword">function</span>(<span class="params">scope,...args</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> fn = <span class="built_in">Symbol</span>(<span class="string">'fn'</span>)   <span class="comment">// 标识唯一性, 避免修改scope属性</span></span><br><span class="line">    scope[fn] = <span class="keyword">this</span></span><br><span class="line">    <span class="keyword">const</span> result = scope[fn](...args)</span><br><span class="line">    <span class="keyword">delete</span> scope[fn]</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>apply的实现</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myApply = <span class="function"><span class="keyword">function</span>(<span class="params">scope, argsArr</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> fn = <span class="built_in">Symbol</span>(<span class="string">'fn'</span>)   <span class="comment">// 标识唯一性, 避免修改scope属性</span></span><br><span class="line">    scope[fn] = <span class="keyword">this</span></span><br><span class="line">    <span class="keyword">const</span> result = scope[fn](...args)</span><br><span class="line">    <span class="keyword">delete</span> scope[fn]</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>bind的实现</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myBind = <span class="function"><span class="keyword">function</span>(<span class="params">scope, ...args</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> fn = <span class="built_in">Symbol</span>(<span class="string">'fn'</span>)   <span class="comment">// 标识唯一性, 避免修改scope属性</span></span><br><span class="line">    scope[fn] = <span class="keyword">this</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">...args2</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">const</span> result = scope[fn](...args, ...args2)</span><br><span class="line">        <span class="keyword">delete</span> scope[fn]</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>不足：如果函数体里面打印出this的值，会发现this里面增加了属性fn。</p>
+        <p>浏览器在解析HTML的过程中可能会对DOM的渲染或者其他资源的加载造成阻塞，实际上这是浏览器内核出于对各种标签里面的可能执行内容，对浏览器渲染效率的考虑而做出的结果。<br><a id="more"></a><br>我做了一个简单的测试，用setTimeout函数模拟网络延迟，观察console界面输出顺序和network的加载情况</p>
+<h4 id="script标签和link-css标签"><a href="#script标签和link-css标签" class="headerlink" title="script标签和link css标签"></a>script标签和link css标签</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> expess = <span class="built_in">require</span>(<span class="string">"express"</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"><span class="keyword">const</span> app = expess();</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">"/js"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        res.sendFile(path.join(__dirname, <span class="string">"1.js"</span>));</span><br><span class="line">    &#125;, <span class="number">5000</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">"/css"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        res.sendFile(path.join(__dirname, <span class="string">"1.css"</span>));</span><br><span class="line">    &#125;, <span class="number">5000</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">"/icon"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        res.sendFile(path.join(__dirname, <span class="string">"1.png"</span>));</span><br><span class="line">    &#125;, <span class="number">5000</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">4321</span>);</span><br></pre></td></tr></table></figure>
+<p>1.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'this is js file...'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>1.css<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">'text/javascript'</span> <span class="attr">src</span>=<span class="string">"http://localhost:4321/js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"http://localhost:4321/css"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"height:100px;width:100px;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="/images/html渲染机制-script与link标签加载顺序/network_js_css.png" alt="Image text"><br>浏览器版本：chrome 79.0.3945.88<br>结果显示无论script和css在head里的顺序如何，两个请求同时发起，虽然没有阻塞其他资源的请求，但是script标签会阻塞DOM的渲染，所以一般情况下，script标签写在body的底部。<br>PS: 有些地方会把script写在body标签之后，html标签之前，其实这样是不符合标准的，html只有两个标签，head和script，但是由于大多数浏览器都有容错（实现不一定一样），对于chrome来说，head和body之间的标签会被合进head，body和html之间的标签会被合进body。</p>
+<h4 id="link-icon标签"><a href="#link-icon标签" class="headerlink" title="link icon标签"></a>link icon标签</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"icon"</span> <span class="attr">href</span>=<span class="string">"http://localhost:4321/icon"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"http://localhost:4321/css"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">'text/javascript'</span> <span class="attr">src</span>=<span class="string">"http://localhost:4321/js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"height:100px;width:100px;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="/images/html渲染机制-script与link标签加载顺序/network_js_css_icon.png" alt="Image text"><br>浏览器版本：chrome 79.0.3945.88<br>结果证明，浏览器同时请求js和css，请求完成之后执行js内容，最后才请求icon文件。</p>
+<h4 id="js的执行"><a href="#js的执行" class="headerlink" title="js的执行"></a>js的执行</h4><p>当我们把js的延迟设为0，css的延迟不变的时候，会发现当js标签放在css标签后面的时候，会等待css加载完之后再执行；当js标签放在css标签之前的时候，js就会在请求返回之后立即执行。这是因为考虑到js可能会对css样式进行操作。</p>
+<h4 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h4><ol>
+<li>浏览器并行加载,顺序执行,icon标签最后加载</li>
+<li>js加载阻塞DOM的渲染</li>
+<li>css加载阻塞后面js的执行</li>
+</ol>
 
       
     </div>
@@ -410,7 +413,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+            <a href="/tags/HTML/" rel="tag"># HTML</a>
           
         </div>
       
@@ -423,8 +426,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/10/23/JavaScript实现instanceof/" rel="next" title="JavaScript实现instanceof">
-                <i class="fa fa-chevron-left"></i> JavaScript实现instanceof
+              <a href="/2019/11/15/JavaScript实现lazyMan/" rel="next" title="JavaScript实现lazyMan">
+                <i class="fa fa-chevron-left"></i> JavaScript实现lazyMan
               </a>
             
           </div>
@@ -432,10 +435,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/11/04/JavaScript事件委托/" rel="prev" title="JavaScript事件委托">
-                JavaScript事件委托 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -490,8 +489,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -577,6 +585,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#script标签和link-css标签"><span class="nav-number">1.</span> <span class="nav-text">script标签和link css标签</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#link-icon标签"><span class="nav-number">2.</span> <span class="nav-text">link icon标签</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#js的执行"><span class="nav-number">3.</span> <span class="nav-text">js的执行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#结论"><span class="nav-number">4.</span> <span class="nav-text">结论</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
